@@ -1,0 +1,49 @@
+.calc-box {
+  padding: 20px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+}
+.calc-box__label   { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.calc-box__value   { font: 700 1.5rem/1.2 var(--font-display); color: var(--color-primary); margin-top: 6px; }
+.calc-box__formula { font-size: 11px; color: var(--color-text-muted); margin-top: 6px; font-style: italic; }
+
+.kpi-card--cost   { border-left: 3px solid var(--color-negative); }
+.kpi-card--cost   .kpi-card__value { color: var(--color-negative); }
+.kpi-card--profit { border-left: 3px solid var(--color-positive); }
+.kpi-card--profit .kpi-card__value { color: var(--color-positive); }
+
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+.modal-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  width: 500px; max-width: 90vw; max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(16px);
+  transition: transform var(--transition-base);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.modal-overlay.show .modal-card { transform: translateY(0); }
+
+.project-actions { display: flex; gap: 8px; }
+.project-actions button { padding: 4px 8px; font-size: 12px; }
+
+.status-badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px; font-weight: 600;
+}
+.status-Active    { background: rgba(80,160,110,0.15);  color: #50A06E; }
+.status-Review    { background: rgba(210,140,60,0.15);  color: #D28C3C; }
+.status-Planned   { background: rgba(90,140,190,0.15);  color: #5A8CBE; }
+.status-Completed { background: rgba(100,100,100,0.1);  color: var(--color-text-muted); }
+.status-Cancelled { background: rgba(200,80,80,0.1);    color: #C84040; }

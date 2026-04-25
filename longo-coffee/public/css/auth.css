@@ -1,0 +1,208 @@
+/* ============================================================
+   Longo Coffee — Auth Page Styles
+   ============================================================ */
+
+body {
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.auth-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4);
+}
+
+.auth-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  width: 100%;
+  max-width: 460px;
+  box-shadow: var(--shadow-md);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.auth-brand {
+  font: 700 32px/1 var(--font-display);
+  color: var(--color-primary);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: var(--space-2);
+}
+
+/* ---- Tabs ---- */
+.auth-tabs {
+  display: flex;
+  position: relative;
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-3) 0;
+  font: 600 var(--text-sm)/1 var(--font-body);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color var(--transition-fast);
+}
+
+.auth-tab.active {
+  color: var(--color-primary);
+}
+
+/* ---- Required star — inline, not displaced ---- */
+.auth-required {
+  color: var(--color-negative);
+  margin-left: 2px;
+  font-style: normal;
+}
+
+/* ---- Password label row ---- */
+.auth-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+}
+
+.auth-label-row .form-label {
+  margin-bottom: 0;
+}
+
+.auth-forgot-link {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.auth-forgot-link:hover {
+  color: var(--color-primary);
+}
+
+/* ---- Password wrapper & toggle ---- */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .form-input {
+  padding-right: 44px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.password-toggle:hover {
+  color: var(--color-primary);
+}
+
+.password-toggle .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* ---- Error banner ---- */
+.auth-error {
+  background: rgba(193, 123, 107, 0.1);
+  color: var(--color-negative);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-4);
+  display: none;
+}
+
+.auth-error.show {
+  display: block;
+}
+
+/* ---- Password requirements ---- */
+.password-requirements {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.8;
+}
+
+.password-requirements span {
+  display: block;
+}
+
+.password-requirements span.valid {
+  color: var(--color-positive);
+}
+
+.password-requirements span.invalid {
+  color: var(--color-negative);
+}
+
+/* ---- Auth footer ---- */
+.auth-footer {
+  text-align: center;
+  padding: var(--space-6);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.auth-footer a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.auth-footer a:hover {
+  color: var(--color-primary);
+}
+
+/* ---- Success banner (forgot password) ---- */
+.auth-success {
+  background: rgba(100, 160, 100, 0.1);
+  color: var(--color-positive);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  display: none;
+}
+
+.auth-success.show {
+  display: block;
+}
+
+/* ---- Back link ---- */
+.auth-back-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.auth-back-link:hover {
+  opacity: 0.75;
+}

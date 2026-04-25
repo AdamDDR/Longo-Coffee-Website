@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Management | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-money.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+      <a href="/admin/orders" class="sidebar-link"><span class="material-symbols-outlined">local_shipping</span> Orders</a>
+      <a href="/admin/products" class="sidebar-link"><span class="material-symbols-outlined">inventory_2</span> Products</a>
+      <a href="/admin/money" class="sidebar-link"><span class="material-symbols-outlined">account_balance_wallet</span> Finance</a>
+      <a href="/admin/analytics" class="sidebar-link"><span class="material-symbols-outlined">analytics</span> Analytics</a>
+      <a href="/admin/policies" class="sidebar-link"><span class="material-symbols-outlined">policy</span> Policies</a>
+      <a href="/admin/support" class="sidebar-link"><span class="material-symbols-outlined">support_agent</span> Support</a>
+      <a href="/admin/settings" class="sidebar-link"><span class="material-symbols-outlined">settings</span> Settings</a>
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link"><span class="material-symbols-outlined">group</span> Users</a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Money Management</h1>
+    <div class="admin-topbar__actions">
+      <button class="btn btn-primary text-sm" id="export-finance-word">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:-3px;">download</span> Export Report
+      </button>
+      <button class="admin-topbar__icon" id="admin-logout"><span class="material-symbols-outlined">logout</span></button>
+    </div>
+  </header>
+
+  <main class="admin-main" id="finance-report">
+
+    <!-- KPI Row -->
+    <div class="grid grid-4 gap-6 mb-8">
+      <div class="kpi-card">
+        <span class="kpi-card__label">Total Revenue</span>
+        <span class="kpi-card__value" id="kpi-revenue">—</span>
+      </div>
+      <div class="kpi-card kpi-card--cost">
+        <span class="kpi-card__label">Total Cost</span>
+        <span class="kpi-card__value" id="kpi-cost">—</span>
+      </div>
+      <div class="kpi-card kpi-card--profit">
+        <span class="kpi-card__label">Gross Profit</span>
+        <span class="kpi-card__value" id="kpi-profit">—</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card__label">Avg. Order Value</span>
+        <span class="kpi-card__value" id="kpi-aov">—</span>
+      </div>
+    </div>
+
+    <div class="grid grid-2 gap-6 mb-8">
+      <div class="kpi-card">
+        <span class="kpi-card__label">Total Customers</span>
+        <span class="kpi-card__value" id="kpi-customers">—</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card__label">Products Sold</span>
+        <span class="kpi-card__value" id="kpi-sold">—</span>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="admin-dashboard-grid mb-8">
+      <div class="chart-container">
+        <div class="chart-container__header">
+          <h2 class="chart-container__title">Revenue, Cost &amp; Profit by Month</h2>
+        </div>
+        <div style="height:300px;position:relative;">
+          <canvas id="cashFlowChart"></canvas>
+        </div>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div class="chart-container flex-1">
+          <div class="chart-container__header mb-2">
+            <h2 class="chart-container__title">Revenue by Payment Method</h2>
+          </div>
+          <div style="height:220px;position:relative;">
+            <canvas id="paymentMethodChart"></canvas>
+          </div>
+        </div>
+        <div class="kpi-card" style="flex:0 0 auto;">
+          <span class="kpi-card__label">Est. ROI (Annual)</span>
+          <span class="kpi-card__value" id="roi-value">—</span>
+          <span class="kpi-card__trend trend-up" id="roi-trend">
+            <span class="material-symbols-outlined" style="font-size:16px">trending_up</span> Calculating...
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sales Trend -->
+    <div class="panel mb-8">
+      <div class="chart-container__header">
+        <h2 class="chart-container__title">Sales Trend (Units Sold Daily)</h2>
+      </div>
+      <div style="height:260px;position:relative;">
+        <canvas id="salesTrendChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Financial Settings -->
+    <div class="panel mb-8">
+      <h2 class="font-display text-xl mb-1">Financial Settings</h2>
+      <p class="text-xs text-muted mb-6">These values drive the NCF, NPV and payback calculations below.</p>
+      <div class="grid grid-3 gap-6">
+        <div class="form-group mb-0">
+          <label class="form-label">Discount Rate (%)</label>
+          <input type="number" class="form-input" id="fin-discount-rate" value="10" min="0" max="100" step="0.5">
+          <p class="text-xs text-muted mt-1">Your required rate of return / cost of capital</p>
+        </div>
+        <div class="form-group mb-0">
+          <label class="form-label">Projection Horizon (years)</label>
+          <input type="number" class="form-input" id="fin-horizon" value="3" min="1" max="20" step="1">
+          <p class="text-xs text-muted mt-1">How many years to project NPV over</p>
+        </div>
+        <div class="form-group mb-0">
+          <label class="form-label">Annual Fixed Costs (EGP)</label>
+          <input type="number" class="form-input" id="fin-fixed-costs" value="0" min="0" step="100">
+          <p class="text-xs text-muted mt-1">Rent, salaries, overhead — deducted from gross profit</p>
+        </div>
+      </div>
+      <div class="flex justify-end mt-5">
+        <button class="btn btn-primary" id="recalculate-btn">Recalculate</button>
+      </div>
+    </div>
+
+    <!-- Financial Calculations -->
+    <div class="panel mb-8">
+      <h2 class="font-display text-xl mb-2">Annual Financial Calculations</h2>
+      <p class="text-xs text-muted mb-6" id="fin-calc-subtitle">Based on real order profit projected annually.</p>
+      <div class="grid grid-3 gap-6">
+        <div class="calc-box">
+          <div class="calc-box__label">Net Cash Flow (Annual)</div>
+          <div class="calc-box__value" id="calc-ncf">EGP 0</div>
+          <div class="calc-box__formula" id="calc-ncf-formula">Gross Profit − Annual Fixed Costs</div>
+        </div>
+        <div class="calc-box">
+          <div class="calc-box__label">Net Present Value (NPV)</div>
+          <div class="calc-box__value" id="calc-npv">EGP 0</div>
+          <div class="calc-box__formula" id="calc-npv-formula">−CapEx + Σ NCF ÷ (1 + r)ⁿ</div>
+        </div>
+        <div class="calc-box">
+          <div class="calc-box__label">Payback Period</div>
+          <div class="calc-box__value" id="calc-payback">— months</div>
+          <div class="calc-box__formula" id="calc-payback-formula">Total CapEx ÷ Monthly NCF</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly NCF Breakdown -->
+    <div class="panel mb-8">
+      <h2 class="font-display text-xl mb-6">Monthly Cash Flow Breakdown</h2>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Revenue</th>
+              <th>Cost of Goods</th>
+              <th>Gross Profit</th>
+              <th>Fixed Cost Share</th>
+              <th>Net Cash Flow</th>
+            </tr>
+          </thead>
+          <tbody id="monthly-ncf-table">
+            <tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Initiatives Portfolio -->
+    <div class="panel mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="font-display text-xl">Active Initiatives Portfolio</h2>
+          <p class="text-xs text-muted mt-1">CapEx values feed directly into the financial calculations above.</p>
+        </div>
+        <button class="btn btn-primary" id="add-project-btn">
+          <span class="material-symbols-outlined" style="font-size:16px;vertical-align:-3px;">add</span> Add Initiative
+        </button>
+      </div>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Initiative Name</th>
+              <th>CapEx (EGP)</th>
+              <th>Projected ROI</th>
+              <th>Status</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="projects-table">
+            <tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex justify-between items-center mt-4 pt-4" style="border-top:1px solid var(--color-divider);">
+        <span class="text-xs text-muted">Total CapEx:</span>
+        <span class="font-bold text-primary" id="total-capex">EGP 0</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal-card">
+      <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <h2 class="font-display text-xl" style="margin-bottom:0;" id="modal-title">Add Initiative</h2>
+        <button type="button" onclick="closeProjModal()" style="background:none;border:none;cursor:pointer;color:var(--color-text-muted);">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="project-form">
+        <input type="hidden" id="project-id">
+        <div class="form-group">
+          <label class="form-label">Initiative Name *</label>
+          <input type="text" class="form-input" id="proj-name" required placeholder="e.g. Roastery Expansion Phase III">
+        </div>
+        <div class="grid grid-2 gap-4 mb-4">
+          <div class="form-group mb-0">
+            <label class="form-label">CapEx (EGP) *</label>
+            <input type="number" class="form-input" id="proj-capex" min="0" required placeholder="250000">
+          </div>
+          <div class="form-group mb-0">
+            <label class="form-label">Projected ROI (%)</label>
+            <input type="number" class="form-input" id="proj-roi" step="0.1" min="0" placeholder="15.5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-input" id="proj-status">
+            <option value="Planned">Planned</option>
+            <option value="Review">Under Review</option>
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea class="form-input" id="proj-notes" style="min-height:80px;" placeholder="Optional..."></textarea>
+        </div>
+        <div class="flex gap-3 justify-end mt-6">
+          <button type="button" class="btn btn-ghost" onclick="closeProjModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submit-project-btn">Save Initiative</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="admin-toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/admin-money.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policies | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- Quill Rich Text Editor -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/policies_admin.css">
+</head>
+<body class="admin-layout">
+
+<aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+      <a href="/admin/orders" class="sidebar-link">
+        <span class="material-symbols-outlined">local_shipping</span> Orders
+      </a>
+      <a href="/admin/products" class="sidebar-link">
+        <span class="material-symbols-outlined">inventory_2</span> Products
+      </a>
+      <a href="/admin/money" class="sidebar-link">
+        <span class="material-symbols-outlined">account_balance_wallet</span> Finance
+      </a>
+      <a href="/admin/analytics" class="sidebar-link">
+        <span class="material-symbols-outlined">analytics</span> Analytics
+      </a>
+      <a href="/admin/policies" class="sidebar-link">
+        <span class="material-symbols-outlined">policy</span> Policies
+      </a>
+      <a href="/admin/support" class="sidebar-link">
+        <span class="material-symbols-outlined">support_agent</span> Support
+      </a>
+      <a href="/admin/settings" class="sidebar-link">
+        <span class="material-symbols-outlined">settings</span> Settings
+      </a>
+
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link">
+          <span class="material-symbols-outlined">group</span> Users
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Store Policies</h1>
+    <div class="admin-topbar__actions">
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <div class="policies-intro">
+      <h2 class="font-display text-xl">Policy Content Management</h2>
+      <p class="text-sm text-muted mt-1">
+        Update the store policies displayed to customers. Use the toolbar to format text — no code required.
+      </p>
+    </div>
+
+    <div class="policies-grid">
+
+      <!-- Shipping Policy -->
+      <div class="policy-card" data-key="shipping">
+        <div class="policy-card__header">
+          <span class="material-symbols-outlined">local_shipping</span>
+          <h3 class="font-display">Shipping Policy</h3>
+          <span class="policy-card__saved" id="saved-shipping"></span>
+        </div>
+        <div class="policy-editor" id="editor-shipping"></div>
+        <div class="policy-card__footer">
+          <button class="btn btn-primary policy-save-btn" data-key="shipping">
+            <span class="material-symbols-outlined">save</span> Save
+          </button>
+        </div>
+      </div>
+
+      <!-- Payment Policy -->
+      <div class="policy-card" data-key="payment">
+        <div class="policy-card__header">
+          <span class="material-symbols-outlined">credit_card</span>
+          <h3 class="font-display">Payment Policy</h3>
+          <span class="policy-card__saved" id="saved-payment"></span>
+        </div>
+        <div class="policy-editor" id="editor-payment"></div>
+        <div class="policy-card__footer">
+          <button class="btn btn-primary policy-save-btn" data-key="payment">
+            <span class="material-symbols-outlined">save</span> Save
+          </button>
+        </div>
+      </div>
+
+      <!-- Returns Policy -->
+      <div class="policy-card" data-key="returns">
+        <div class="policy-card__header">
+          <span class="material-symbols-outlined">assignment_return</span>
+          <h3 class="font-display">Returns &amp; Refunds</h3>
+          <span class="policy-card__saved" id="saved-returns"></span>
+        </div>
+        <div class="policy-editor" id="editor-returns"></div>
+        <div class="policy-card__footer">
+          <button class="btn btn-primary policy-save-btn" data-key="returns">
+            <span class="material-symbols-outlined">save</span> Save
+          </button>
+        </div>
+      </div>
+
+      <!-- Privacy Policy -->
+      <div class="policy-card" data-key="privacy">
+        <div class="policy-card__header">
+          <span class="material-symbols-outlined">shield</span>
+          <h3 class="font-display">Privacy Policy</h3>
+          <span class="policy-card__saved" id="saved-privacy"></span>
+        </div>
+        <div class="policy-editor" id="editor-privacy"></div>
+        <div class="policy-card__footer">
+          <button class="btn btn-primary policy-save-btn" data-key="privacy">
+            <span class="material-symbols-outlined">save</span> Save
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/policies.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-analytics.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+      <a href="/admin/orders" class="sidebar-link"><span class="material-symbols-outlined">local_shipping</span> Orders</a>
+      <a href="/admin/products" class="sidebar-link"><span class="material-symbols-outlined">inventory_2</span> Products</a>
+      <a href="/admin/money" class="sidebar-link"><span class="material-symbols-outlined">account_balance_wallet</span> Finance</a>
+      <a href="/admin/analytics" class="sidebar-link"><span class="material-symbols-outlined">analytics</span> Analytics</a>
+      <a href="/admin/policies" class="sidebar-link"><span class="material-symbols-outlined">policy</span> Policies</a>
+      <a href="/admin/support" class="sidebar-link"><span class="material-symbols-outlined">support_agent</span> Support</a>
+      <a href="/admin/settings" class="sidebar-link"><span class="material-symbols-outlined">settings</span> Settings</a>
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link"><span class="material-symbols-outlined">group</span> Users</a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Explore Analytics</h1>
+    <div class="admin-topbar__actions">
+      <button class="btn btn-primary text-sm py-1 px-3" id="export-analytics-word">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:-3px;">download</span> Export Report
+      </button>
+      <button class="admin-topbar__icon" id="admin-logout"><span class="material-symbols-outlined">logout</span></button>
+    </div>
+  </header>
+
+  <main class="admin-main" id="analytics-content">
+
+    <!-- KPI Row -->
+    <div class="grid grid-2 gap-6 mb-8">
+      <div class="kpi-card">
+        <span class="kpi-card__label">Total Orders</span>
+        <span class="kpi-card__value" id="kpi-total-orders">—</span>
+        <span class="kpi-card__sub" id="kpi-orders-breakdown">— pending · — processing · — delivered</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card__label">Avg. Order Value</span>
+        <span class="kpi-card__value" id="kpi-avg-order">—</span>
+        <span class="kpi-card__sub">Non-cancelled orders only</span>
+      </div>
+    </div>
+
+    <!-- User Activity -->
+    <div class="panel mb-8">
+      <h2 class="font-display text-xl mb-6">User Activity</h2>
+      <div class="grid grid-3 gap-6">
+        <div class="users-metric-box">
+          <div class="users-metric-box__label">Today</div>
+          <div class="users-metric-box__value" id="users-day-net">—</div>
+          <div class="users-metric-box__detail">
+            <span class="text-positive" id="users-day-added">+0 added</span>
+            <span class="text-negative" id="users-day-removed">−0 removed</span>
+          </div>
+        </div>
+        <div class="users-metric-box">
+          <div class="users-metric-box__label">This Month</div>
+          <div class="users-metric-box__value" id="users-month-net">—</div>
+          <div class="users-metric-box__detail">
+            <span class="text-positive" id="users-month-added">+0 added</span>
+            <span class="text-negative" id="users-month-removed">−0 removed</span>
+          </div>
+        </div>
+        <div class="users-metric-box">
+          <div class="users-metric-box__label">This Year</div>
+          <div class="users-metric-box__value" id="users-year-net">—</div>
+          <div class="users-metric-box__detail">
+            <span class="text-positive" id="users-year-added">+0 added</span>
+            <span class="text-negative" id="users-year-removed">−0 removed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2x2 Chart Grid -->
+    <div class="analytics-grid-2x2 mb-8">
+      <div class="chart-container">
+        <div class="chart-container__header">
+          <h2 class="chart-container__title">Sales Trend (Units Sold)</h2>
+        </div>
+        <div style="height:250px;position:relative;">
+          <canvas id="salesTrendChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-container__header">
+          <h2 class="chart-container__title">Top Products <span class="chart-title-note">Delivered orders only</span></h2>
+        </div>
+        <div style="height:250px;position:relative;">
+          <canvas id="topProductsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-container__header">
+          <h2 class="chart-container__title">Orders by Status</h2>
+        </div>
+        <div style="height:250px;position:relative;">
+          <canvas id="ordersStatusChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-container__header">
+          <h2 class="chart-container__title">Revenue by Category</h2>
+        </div>
+        <div style="height:250px;position:relative;">
+          <canvas id="revenueCategoryChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="admin-toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/admin-analytics.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Tickets | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/support.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+      <a href="/admin/orders" class="sidebar-link">
+        <span class="material-symbols-outlined">local_shipping</span> Orders
+      </a>
+      <a href="/admin/products" class="sidebar-link">
+        <span class="material-symbols-outlined">inventory_2</span> Products
+      </a>
+      <a href="/admin/money" class="sidebar-link">
+        <span class="material-symbols-outlined">account_balance_wallet</span> Finance
+      </a>
+      <a href="/admin/analytics" class="sidebar-link">
+        <span class="material-symbols-outlined">analytics</span> Analytics
+      </a>
+      <a href="/admin/policies" class="sidebar-link">
+        <span class="material-symbols-outlined">policy</span> Policies
+      </a>
+      <a href="/admin/support" class="sidebar-link">
+        <span class="material-symbols-outlined">support_agent</span> Support
+      </a>
+      <a href="/admin/settings" class="sidebar-link">
+        <span class="material-symbols-outlined">settings</span> Settings
+      </a>
+
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link">
+          <span class="material-symbols-outlined">group</span> Users
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Customer Support</h1>
+    <div class="admin-topbar__actions">
+      <span class="text-xs text-muted" id="poll-status" style="opacity:0.6;">Live</span>
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main admin-main--flush">
+
+    <div class="layout-support">
+
+      <!-- Left: Ticket List -->
+      <div class="ticket-list">
+        <div class="ticket-list-header">
+          <div class="flex gap-2">
+            <button class="btn btn-ghost text-xs py-1 px-2 active" data-filter="">All</button>
+            <button class="btn btn-ghost text-xs py-1 px-2" data-filter="Open">Open</button>
+            <button class="btn btn-ghost text-xs py-1 px-2" data-filter="In Progress">In Progress</button>
+            <button class="btn btn-ghost text-xs py-1 px-2" data-filter="Resolved">Resolved</button>
+            <button class="btn btn-ghost text-xs py-1 px-2" data-filter="Closed">Closed</button>
+          </div>
+        </div>
+        <div id="ticket-list-container">
+          <div class="p-4 text-center text-muted">Loading tickets…</div>
+        </div>
+      </div>
+
+      <!-- Right: Ticket Thread -->
+      <div class="ticket-view">
+
+        <div class="ticket-view-header">
+          <div>
+            <h2 class="font-display text-lg mb-1" id="view-subject">Select a ticket</h2>
+            <div class="text-xs text-muted flex gap-3 items-center" id="view-meta"></div>
+          </div>
+          <div class="flex gap-2 items-center" id="view-actions" style="display:none !important;">
+            <select class="form-input py-1 px-2 text-sm" id="view-status" style="width:auto;">
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ticket-view-body" id="view-messages">
+          <div class="flex items-center justify-center h-full text-muted">
+            <p>Select a ticket from the left to view the thread.</p>
+          </div>
+        </div>
+
+        <!-- Reply box — hidden when ticket is Closed or Resolved -->
+        <div class="ticket-reply-box" id="view-reply-box" style="display:none;">
+          <form id="reply-form">
+            <textarea id="reply-text" class="form-input mb-3"
+              placeholder="Type your reply…" rows="3" required></textarea>
+            <div class="flex justify-between items-center">
+              <label class="checkbox-label mb-0 text-xs">
+                <input type="checkbox" id="reply-internal"> Internal Note (Private)
+              </label>
+              <button type="submit" class="btn btn-primary py-2 px-4" id="reply-submit">
+                <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">send</span>
+                Send Reply
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Closed notice — shown when ticket is Closed or Resolved -->
+        <div class="ticket-closed-notice" id="view-closed-notice" style="display:none;">
+          <span class="material-symbols-outlined">lock</span>
+          This ticket is <strong id="view-closed-status">closed</strong>.
+          Change the status above to reopen it.
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/js/admin.js"></script>
+  <script src="/js/support.js"></script>
+</body>
+</html>

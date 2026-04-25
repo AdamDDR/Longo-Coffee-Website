@@ -1,0 +1,189 @@
+/* ============================================================
+   Longo Coffee — Products & Inventory Page Styles
+   ============================================================ */
+
+/* ── Toolbar ─────────────────────────────────────────────────── */
+.products-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.products-toolbar__search {
+  position: relative;
+  width: 320px;
+}
+
+.products-toolbar__search .material-symbols-outlined {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--color-text-faint);
+  pointer-events: none;
+}
+
+.products-toolbar__search .form-input {
+  padding-left: 36px;
+  width: 100%;
+}
+
+/* ── Product thumbnail ─────────────────────────────────────────── */
+.product-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  display: block;
+}
+
+.product-thumb-placeholder {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+.product-thumb-placeholder .material-symbols-outlined { font-size: 24px; }
+
+/* ── Inactive row ─────────────────────────────────────────────── */
+.product-row--inactive {
+  opacity: 0.5;
+}
+
+/* ── Stock badges ─────────────────────────────────────────────── */
+.badge--low {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  background: #fff3cd;
+  color: #92600a;
+}
+
+.badge--critical {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  background: #fde8e8;
+  color: #c0392b;
+}
+
+/* ── Inactive badge ───────────────────────────────────────────── */
+.badge--inactive {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--color-surface-alt);
+  color: var(--color-text-faint);
+  border: 1px solid var(--color-border);
+}
+
+/* ── Image upload area ─────────────────────────────────────────── */
+.image-upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.image-upload-area:hover {
+  border-color: var(--color-primary);
+  background: rgba(75, 46, 43, 0.02);
+}
+
+.image-upload-area.has-image {
+  border-style: solid;
+  padding: 0;
+}
+
+.image-upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.upload-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: var(--space-4) 0;
+}
+
+.upload-prompt .material-symbols-outlined {
+  font-size: 36px;
+  color: var(--color-text-muted);
+}
+
+.image-upload-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.image-upload-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: var(--radius-md);
+  z-index: 1;
+}
+
+.image-upload-area.has-image:hover .image-upload-overlay { opacity: 1; }
+.image-upload-overlay span { color: white; font-size: 14px; font-weight: 500; }
+
+.image-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.image-upload-area.has-image:hover .image-remove-btn { opacity: 1; }
+.image-remove-btn .material-symbols-outlined { font-size: 18px; }

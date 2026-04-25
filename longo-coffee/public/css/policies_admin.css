@@ -1,0 +1,160 @@
+/* ================================================================
+   POLICIES PAGE — admin/policies
+   ================================================================ */
+
+.policies-intro {
+  margin-bottom: var(--space-8);
+}
+
+/* ── 2-column grid ───────────────────────────────────────────── */
+.policies-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .policies-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Policy card ─────────────────────────────────────────────── */
+.policy-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.policy-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-surface);
+}
+
+.policy-card__header .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.policy-card__header h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  flex: 1;
+  margin: 0;
+}
+
+/* Inline "Saved ✓" confirmation */
+.policy-card__saved {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-positive);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  white-space: nowrap;
+}
+
+.policy-card__saved.visible {
+  opacity: 1;
+}
+
+/* ── Quill editor container ──────────────────────────────────── */
+.policy-editor {
+  flex: 1;
+}
+
+/* Override Quill borders to match our design tokens */
+.policy-card .ql-toolbar {
+  border: none;
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-bg);
+  font-family: var(--font-body);
+  padding: var(--space-2) var(--space-4);
+}
+
+.policy-card .ql-container {
+  border: none;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  min-height: 240px;
+}
+
+.policy-card .ql-editor {
+  min-height: 240px;
+  padding: var(--space-4) var(--space-5);
+  line-height: 1.7;
+}
+
+.policy-card .ql-editor p,
+.policy-card .ql-editor li {
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.policy-card .ql-editor h2 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--color-primary);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.policy-card .ql-editor h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-3) 0 var(--space-1);
+}
+
+.policy-card .ql-editor a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Quill toolbar icon tint */
+.policy-card .ql-toolbar .ql-stroke {
+  stroke: var(--color-text-muted);
+}
+.policy-card .ql-toolbar .ql-fill {
+  fill: var(--color-text-muted);
+}
+.policy-card .ql-toolbar button:hover .ql-stroke,
+.policy-card .ql-toolbar .ql-active .ql-stroke {
+  stroke: var(--color-primary);
+}
+.policy-card .ql-toolbar button:hover .ql-fill,
+.policy-card .ql-toolbar .ql-active .ql-fill {
+  fill: var(--color-primary);
+}
+.policy-card .ql-toolbar .ql-picker-label {
+  color: var(--color-text-muted);
+}
+.policy-card .ql-toolbar .ql-picker-label:hover,
+.policy-card .ql-toolbar .ql-active .ql-picker-label {
+  color: var(--color-primary);
+}
+
+/* ── Card footer (Save button) ───────────────────────────────── */
+.policy-card__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-surface);
+}
+
+.policy-save-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.policy-save-btn .material-symbols-outlined {
+  font-size: 16px;
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policies | Longo Coffee</title>
+  <meta name="description" content="Longo Coffee's shipping, payment, return, and privacy policies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/homepage-artisanal.css">
+  <link rel="stylesheet" href="/css/policies.css">
+</head>
+<body class="artisanal-body">
+
+  <nav class="client-nav" id="main-nav">
+    <div class="client-nav__inner">
+      <a href="/" class="client-nav__brand">Longo</a>
+      <div class="client-nav__links">
+        <a href="/shop" class="client-nav__link">Shop</a>
+        <a href="/contact" class="client-nav__link">Contact</a>
+        <a href="/policies" class="client-nav__link active">Policies</a>
+      </div>
+      <div class="client-nav__actions">
+        <a href="/auth" class="client-nav__link" id="nav-login-link">Login</a>
+        <a href="/cart" class="client-nav__cart-btn">
+          <span class="material-symbols-outlined">shopping_bag</span>
+          <span class="client-nav__cart-count" id="nav-cart-count" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="client-main">
+    <div class="container">
+
+      <!-- Page Header -->
+      <div class="policies-page-header animate-fade-in">
+        <span class="policies-eyebrow">Transparency First</span>
+        <h1 class="page-header__title">Store Policies</h1>
+        <p class="page-header__subtitle">Everything you need to know about shopping with Longo.</p>
+      </div>
+
+      <!-- Tab Navigation -->
+      <nav class="policy-nav-tabs animate-fade-up" aria-label="Policy sections">
+        <button class="policy-tab active" data-policy="shipping">
+          <span class="material-symbols-outlined">local_shipping</span> Shipping
+        </button>
+        <button class="policy-tab" data-policy="payment">
+          <span class="material-symbols-outlined">credit_card</span> Payment
+        </button>
+        <button class="policy-tab" data-policy="returns">
+          <span class="material-symbols-outlined">assignment_return</span> Returns
+        </button>
+        <button class="policy-tab" data-policy="privacy">
+          <span class="material-symbols-outlined">shield</span> Privacy
+        </button>
+      </nav>
+
+      <!-- ── Shipping ── -->
+      <section class="policy-section active animate-fade-up" id="policy-shipping">
+        <div class="policy-section-header">
+          <span class="material-symbols-outlined">local_shipping</span>
+          <h2 class="policy-heading">Shipping Policy</h2>
+        </div>
+        <p class="policy-tagline">We deliver across Egypt with care and speed.</p>
+
+        <!-- Static highlight cards — shipping only -->
+        <div class="policy-cards-grid" id="shipping-cards">
+          <div class="policy-mini-card">
+            <span class="material-symbols-outlined">schedule</span>
+            <strong>1–3 Business Days</strong>
+            <span>Cairo &amp; Giza delivery</span>
+          </div>
+          <div class="policy-mini-card">
+            <span class="material-symbols-outlined">map</span>
+            <strong>3–7 Business Days</strong>
+            <span>All other governorates</span>
+          </div>
+          <div class="policy-mini-card">
+            <span class="material-symbols-outlined">local_shipping</span>
+            <strong>Free Shipping</strong>
+            <span>On orders over EGP 500</span>
+          </div>
+        </div>
+
+        <!-- Dynamic content from admin -->
+        <div class="policy-body panel">
+          <div class="policy-injected-content" id="content-shipping">
+            <div class="policy-loading">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Payment ── -->
+      <section class="policy-section animate-fade-up" id="policy-payment">
+        <div class="policy-section-header">
+          <span class="material-symbols-outlined">credit_card</span>
+          <h2 class="policy-heading">Payment Policy</h2>
+        </div>
+        <p class="policy-tagline">Secure, flexible, and straightforward.</p>
+        <div class="policy-body panel">
+          <div class="policy-injected-content" id="content-payment">
+            <div class="policy-loading">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Returns ── -->
+      <section class="policy-section animate-fade-up" id="policy-returns">
+        <div class="policy-section-header">
+          <span class="material-symbols-outlined">assignment_return</span>
+          <h2 class="policy-heading">Returns &amp; Refunds</h2>
+        </div>
+        <p class="policy-tagline">Your satisfaction is our priority — always.</p>
+        <div class="policy-body panel">
+          <div class="policy-injected-content" id="content-returns">
+            <div class="policy-loading">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Privacy ── -->
+      <section class="policy-section animate-fade-up" id="policy-privacy">
+        <div class="policy-section-header">
+          <span class="material-symbols-outlined">shield</span>
+          <h2 class="policy-heading">Privacy Policy</h2>
+        </div>
+        <p class="policy-tagline">Your data belongs to you. We keep it safe.</p>
+        <div class="policy-body panel">
+          <div class="policy-injected-content" id="content-privacy">
+            <div class="policy-loading">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <div style="padding-bottom: var(--space-16);"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Longo</div>
+        <p class="footer-text">Premium artisanal coffee, ethically sourced and precision-roasted in Cairo.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Navigate</p>
+        <div class="footer-links">
+          <a href="/shop" class="footer-link">Shop</a>
+          <a href="/contact" class="footer-link">Contact</a>
+          <a href="/policies" class="footer-link">Policies</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-heading">Legal</p>
+        <div class="footer-links">
+          <a href="/policies" class="footer-link">Shipping Policy</a>
+          <a href="/policies" class="footer-link">Returns</a>
+          <a href="/policies" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Longo Coffee. Crafted with intentionality.</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

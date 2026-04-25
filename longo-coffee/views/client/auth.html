@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Longo</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body class="animate-fade-in">
+
+  <nav class="client-nav" id="main-nav">
+    <div class="client-nav__inner">
+      <a href="/" class="client-nav__brand">Longo</a>
+      <div class="client-nav__links">
+        <a href="/shop" class="client-nav__link">Shop</a>
+        <a href="/contact" class="client-nav__link">Contact</a>
+        <a href="/policies" class="client-nav__link">Policies</a>
+      </div>
+      <div class="client-nav__actions">
+        <a href="/auth" class="client-nav__link" id="nav-login-link">Login</a>
+        <a href="/cart" class="client-nav__cart-btn">
+          <span class="material-symbols-outlined">shopping_bag</span>
+          <span class="client-nav__cart-count" id="nav-cart-count" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-container animate-fade-up">
+    <div class="auth-card">
+
+      <div class="auth-header">
+        <a href="/" class="auth-brand">Longo</a>
+        <p class="text-sm text-muted">Welcome back to your daily ritual.</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login">Login</button>
+        <button class="auth-tab" id="tab-signup">Sign Up</button>
+        <div class="tab-indicator" id="tab-indicator" style="width: 50%; left: 0;"></div>
+      </div>
+
+      <div class="auth-error" id="auth-error"></div>
+
+      <!-- Login Form -->
+      <form id="form-login">
+        <div class="form-group">
+          <label class="form-label" for="login-email">
+            Email <em class="auth-required">*</em>
+          </label>
+          <input type="email" id="login-email" class="form-input" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group mb-6">
+          <div class="auth-label-row">
+            <label class="form-label" for="login-password">
+              Password <em class="auth-required">*</em>
+            </label>
+            <a href="/forgot-password" class="auth-forgot-link">Forgot password?</a>
+          </div>
+          <div class="password-wrapper">
+            <input type="password" id="login-password" class="form-input" required placeholder="••••••••">
+            <button type="button" class="password-toggle" data-target="login-password" aria-label="Toggle password visibility">
+              <span class="material-symbols-outlined">visibility_off</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%">Sign In</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="form-signup" class="hidden">
+        <div class="form-group">
+          <label class="form-label" for="signup-name">
+            Full Name <em class="auth-required">*</em>
+          </label>
+          <input type="text" id="signup-name" class="form-input" required placeholder="Jane Doe">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-email">
+            Email <em class="auth-required">*</em>
+          </label>
+          <input type="email" id="signup-email" class="form-input" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-password">
+            Password <em class="auth-required">*</em>
+          </label>
+          <div class="password-wrapper">
+            <input type="password" id="signup-password" class="form-input" required placeholder="••••••••">
+            <button type="button" class="password-toggle" data-target="signup-password" aria-label="Toggle password visibility">
+              <span class="material-symbols-outlined">visibility_off</span>
+            </button>
+          </div>
+          <div class="password-requirements" id="password-requirements">
+            <span id="req-length">✗ At least 8 characters</span>
+            <span id="req-special">✗ At least 1 special character (!@#$%^&amp;*)</span>
+          </div>
+        </div>
+
+        <div class="form-group mb-6">
+          <label class="form-label" for="signup-confirm">
+            Confirm Password <em class="auth-required">*</em>
+          </label>
+          <div class="password-wrapper">
+            <input type="password" id="signup-confirm" class="form-input" required placeholder="••••••••">
+            <button type="button" class="password-toggle" data-target="signup-confirm" aria-label="Toggle password visibility">
+              <span class="material-symbols-outlined">visibility_off</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%">Create Account</button>
+      </form>
+
+    </div>
+  </div>
+
+  <footer class="auth-footer">
+    &copy; 2026 Longo Coffee &nbsp;&middot;&nbsp;
+    <a href="/policies">Policies</a>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

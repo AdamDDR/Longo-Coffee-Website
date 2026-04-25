@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products &amp; Inventory | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/products.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+      <a href="/admin/orders" class="sidebar-link"><span class="material-symbols-outlined">local_shipping</span> Orders</a>
+      <a href="/admin/products" class="sidebar-link"><span class="material-symbols-outlined">inventory_2</span> Products</a>
+      <a href="/admin/money" class="sidebar-link"><span class="material-symbols-outlined">account_balance_wallet</span> Finance</a>
+      <a href="/admin/analytics" class="sidebar-link"><span class="material-symbols-outlined">analytics</span> Analytics</a>
+      <a href="/admin/policies" class="sidebar-link"><span class="material-symbols-outlined">policy</span> Policies</a>
+      <a href="/admin/support" class="sidebar-link"><span class="material-symbols-outlined">support_agent</span> Support</a>
+      <a href="/admin/settings" class="sidebar-link"><span class="material-symbols-outlined">settings</span> Settings</a>
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link"><span class="material-symbols-outlined">group</span> Users</a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Products &amp; Inventory</h1>
+    <div class="admin-topbar__actions">
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <div class="products-toolbar">
+      <div class="products-toolbar__search">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" class="form-input" placeholder="Search products…" id="search-products">
+      </div>
+      <button class="btn btn-primary" onclick="openProductModal()">
+        <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">add</span>
+        Add Product
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category / Details</th>
+            <th>Price</th>
+            <th>Cost</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="products-tbody">
+          <tr><td colspan="7" class="text-center py-8">Loading products…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Product Modal -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-content" style="max-width:640px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="product-modal-title">Add Product</h2>
+        <button class="modal-close"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="product-form">
+        <div class="modal-body">
+          <input type="hidden" id="prod-id">
+          <input type="hidden" id="prod-existing-image">
+
+          <div class="form-group">
+            <label class="form-label">Product Image</label>
+            <div class="image-upload-area" id="image-upload-area">
+              <input type="file" id="prod-image" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml">
+              <div class="upload-prompt" id="upload-prompt">
+                <span class="material-symbols-outlined">add_photo_alternate</span>
+                <span class="text-sm text-muted">Click or drag to upload image</span>
+                <span class="text-xs text-muted">JPG, PNG, WebP — Max 5MB</span>
+              </div>
+              <img class="image-upload-preview" id="image-preview" src="" alt="Preview" style="display:none;">
+              <div class="image-upload-overlay"><span>Change Image</span></div>
+              <button type="button" class="image-remove-btn" onclick="removeImage(event)">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prod-name">Product Name <span class="required-star">*</span></label>
+            <input type="text" id="prod-name" class="form-input" required>
+          </div>
+
+          <div class="grid grid-3 gap-4">
+            <div class="form-group">
+              <label class="form-label" for="prod-price">Price (EGP) <span class="required-star">*</span></label>
+              <input type="number" id="prod-price" class="form-input" required min="0" step="0.5">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="prod-cost">Cost (EGP)</label>
+              <input type="number" id="prod-cost" class="form-input" min="0" step="0.5" placeholder="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="prod-stock">Stock Quantity <span class="required-star">*</span></label>
+              <input type="number" id="prod-stock" class="form-input" required min="0" step="1">
+            </div>
+          </div>
+
+          <div class="grid grid-3 gap-4">
+            <div class="form-group">
+              <label class="form-label" for="prod-category">Category <span class="required-star">*</span></label>
+              <select id="prod-category" class="form-input" onchange="updateProductFields()" required>
+                <option value="Beans">Beans</option>
+                <option value="Equipment">Equipment</option>
+                <option value="Merchandise">Merchandise</option>
+              </select>
+            </div>
+            <div class="form-group" id="field-roast">
+              <label class="form-label" for="prod-roast">Roast Level</label>
+              <select id="prod-roast" class="form-input">
+                <option value="">N/A</option>
+                <option value="Light">Light</option>
+                <option value="Medium">Medium</option>
+                <option value="Dark">Dark</option>
+              </select>
+            </div>
+            <div class="form-group" id="field-origin">
+              <label class="form-label" for="prod-origin">Origin</label>
+              <select id="prod-origin" class="form-input">
+                <option value="">N/A</option>
+                <option value="Africa">Africa</option>
+                <option value="South America">South America</option>
+                <option value="Central America">Central America</option>
+                <option value="Blend">Blend</option>
+              </select>
+            </div>
+            <div class="form-group" id="field-material" style="display:none;">
+              <label class="form-label" for="prod-material">Material</label>
+              <input type="text" id="prod-material" class="form-input" placeholder="e.g. Stainless Steel">
+            </div>
+            <div class="form-group" id="field-weight" style="display:none;">
+              <label class="form-label" for="prod-weight">Weight (g)</label>
+              <input type="number" id="prod-weight" class="form-input" min="0">
+            </div>
+            <div class="form-group" id="field-color" style="display:none;">
+              <label class="form-label" for="prod-color">Color / Finish</label>
+              <input type="text" id="prod-color" class="form-input" placeholder="e.g. Matte Black">
+            </div>
+            <div class="form-group" id="field-size" style="display:none;">
+              <label class="form-label" for="prod-size">Size / Variant</label>
+              <input type="text" id="prod-size" class="form-input" placeholder="e.g. S / M / L">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prod-sku">SKU</label>
+            <input type="text" id="prod-sku" class="form-input">
+          </div>
+          <div class="form-group mb-0">
+            <label class="form-label" for="prod-desc">Description</label>
+            <textarea id="prod-desc" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="prod-submit-btn">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="admin-toast"></div>
+  <script src="/js/admin.js"></script>
+  <script src="/js/products.js"></script>
+</body>
+</html>

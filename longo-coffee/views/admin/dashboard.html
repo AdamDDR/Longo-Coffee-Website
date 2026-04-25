@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-dashboard.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link active"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+      <a href="/admin/orders"    class="sidebar-link"><span class="material-symbols-outlined">local_shipping</span> Orders</a>
+      <a href="/admin/products"  class="sidebar-link"><span class="material-symbols-outlined">inventory_2</span> Products</a>
+      <a href="/admin/money"     class="sidebar-link"><span class="material-symbols-outlined">account_balance_wallet</span> Finance</a>
+      <a href="/admin/analytics" class="sidebar-link"><span class="material-symbols-outlined">analytics</span> Analytics</a>
+      <a href="/admin/policies"  class="sidebar-link"><span class="material-symbols-outlined">policy</span> Policies</a>
+      <a href="/admin/support"   class="sidebar-link"><span class="material-symbols-outlined">support_agent</span> Support</a>
+      <a href="/admin/settings"  class="sidebar-link"><span class="material-symbols-outlined">settings</span> Settings</a>
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link"><span class="material-symbols-outlined">group</span> Users</a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Dashboard</h1>
+    <div class="admin-topbar__actions">
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- Super-admin: password reset notice -->
+    <div id="reset-notice" class="reset-notice" style="display:none;">
+      <span class="material-symbols-outlined reset-notice__icon">lock_reset</span>
+      <span class="reset-notice__text" id="reset-notice-text"></span>
+      <button class="reset-notice__close" id="reset-notice-close" aria-label="Dismiss">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="grid grid-3 gap-6 mb-8">
+      <div class="kpi-card">
+        <span class="kpi-card__label">Today's Revenue</span>
+        <span class="kpi-card__value" id="kpi-today-revenue">—</span>
+        <span class="kpi-card__sub">Delivered + active orders</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card__label">Active Orders</span>
+        <span class="kpi-card__value" id="kpi-active-orders">—</span>
+        <span class="kpi-card__sub">Pending · Processing · Shipped</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card__label">New Customers</span>
+        <span class="kpi-card__value" id="kpi-new-customers">—</span>
+        <span class="kpi-card__sub">This month</span>
+      </div>
+    </div>
+
+    <!-- Monthly Revenue Trend -->
+    <div class="panel mb-8">
+      <div class="panel__header">
+        <h2 class="panel__title">Monthly Revenue Trend</h2>
+        <span class="panel__subtitle" id="trend-month-label"></span>
+      </div>
+      <div style="height:260px; position:relative;">
+        <canvas id="monthlyRevenueChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Bottom Grid: Recent Orders + Low Stock -->
+    <div class="dashboard-bottom-grid">
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2 class="panel__title">Recent Orders</h2>
+          <span class="panel__subtitle">Pending · Processing · Shipped</span>
+        </div>
+        <table class="data-table" id="recent-orders-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Method</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="recent-orders-body">
+            <tr><td colspan="6" class="text-center text-muted py-4">Loading…</td></tr>
+          </tbody>
+        </table>
+        <p id="recent-orders-empty" class="text-center text-muted py-6" style="display:none;">
+          No active orders right now.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2 class="panel__title">Low Stock Alerts</h2>
+          <span class="panel__subtitle">Active products · qty &lt; 20</span>
+        </div>
+        <ul class="stock-alert-list" id="stock-alert-list"></ul>
+        <p id="stock-alert-empty" class="text-center text-muted py-6" style="display:none;">
+          All products are well stocked.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="admin-toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

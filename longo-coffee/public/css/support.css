@@ -1,0 +1,320 @@
+/* ================================================================
+   SUPPORT PAGE — Full layout & component styles
+   ================================================================ */
+
+/* ── 1. Layout ───────────────────────────────────────────────── */
+.layout-support {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: calc(100vh - var(--topbar-height));
+  overflow: hidden;
+  border-radius: 0;                  /* flat, no curves on outer shell */
+}
+
+/* ── 2. Ticket list panel ────────────────────────────────────── */
+.ticket-list {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-divider);
+  background: var(--color-surface);
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.ticket-list-header {
+  flex-shrink: 0;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-surface);
+}
+
+/* ── Filter buttons ──────────────────────────────────────────── */
+.ticket-list-header .flex {
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ticket-list-header [data-filter] {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 14px;               /* larger, roomier */
+  border-radius: 4px;              /* flat, not pill */
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--transition-fast),
+              color var(--transition-fast),
+              border-color var(--transition-fast);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.ticket-list-header [data-filter]:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.ticket-list-header [data-filter].active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* scrollable ticket items */
+#ticket-list-container {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* ── 3. Ticket card ──────────────────────────────────────────── */
+.ticket-item {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  border-radius: 0;
+}
+
+.ticket-item:hover { background: var(--color-bg); }
+
+.ticket-item.active {
+  background: var(--color-surface-alt);
+  border-left: 3px solid var(--color-primary);
+  padding-left: calc(var(--space-5) - 3px);
+}
+
+.ticket-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.ticket-item__id {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket-item__time {
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+
+.ticket-item__subject {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-item__category {
+  font-size: 11px;
+  color: var(--color-text-faint);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-item__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+/* ── 4. Right panel (thread view) ────────────────────────────── */
+.ticket-view {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-bg);    /* page bg — no white shell */
+  border-radius: 0;
+}
+
+.ticket-view-header {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 0 var(--space-6);
+  height: 64px;                   /* matches topbar rhythm */
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-surface);
+  border-radius: 0;
+}
+
+/* Status select — flat rectangle */
+#view-status {
+  height: 36px;
+  padding: 0 var(--space-3);
+  border-radius: 4px;
+  font-size: var(--text-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* ── 5. Message thread ───────────────────────────────────────── */
+.ticket-view-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overscroll-behavior: contain;
+  /* NO background override — inherits var(--color-bg) from parent */
+}
+
+/* ── 6. Message bubbles ──────────────────────────────────────── */
+.ticket-message {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 72%;
+}
+
+.ticket-message.client-reply  { align-self: flex-start; }
+.ticket-message.admin-reply   { align-self: flex-end; flex-direction: row-reverse; }
+
+/* Avatar circle */
+.ticket-message__avatar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #D8C4B0;
+  color: #3A1F1C;
+}
+
+.ticket-message.admin-reply .ticket-message__avatar {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* Content column */
+.ticket-message__content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Meta line: "Name · Apr 24, 01:06 AM" */
+.ticket-message__meta {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5A3A2A;                 /* dark, readable */
+  padding: 0 2px;
+  letter-spacing: 0.01em;
+}
+
+.ticket-message.admin-reply .ticket-message__meta {
+  text-align: right;
+  color: #5A3A2A;
+}
+
+/* Bubble */
+.ticket-message__bubble {
+  padding: var(--space-3) var(--space-4);
+  border-radius: 8px;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  word-break: break-word;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Client bubble — light warm */
+.ticket-message.client-reply .ticket-message__bubble {
+  background: #EDE0D4;            /* warm light brown */
+  color: #2C1810;                 /* very dark for contrast */
+  border-radius: 2px 8px 8px 8px;
+}
+
+/* Admin bubble — deep brown */
+.ticket-message.admin-reply .ticket-message__bubble {
+  background: #4B2E2B;            /* brand primary */
+  color: #F5EDE0;                 /* warm off-white, high contrast */
+  border-radius: 8px 2px 8px 8px;
+}
+
+/* Internal note */
+.ticket-message.internal-note .ticket-message__bubble {
+  background: #FEFCE8;
+  border: 1.5px dashed #D4A853;
+  color: #5A4010;                 /* dark amber text */
+  border-radius: 6px;
+}
+
+.ticket-message.internal-note .ticket-message__meta {
+  color: #7A5E20;
+}
+
+/* ── 7. Reply box ────────────────────────────────────────────── */
+.ticket-reply-box {
+  flex-shrink: 0;
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-surface);
+  border-radius: 0;
+}
+
+.ticket-reply-box textarea {
+  resize: vertical;
+  min-height: 72px;
+  max-height: 200px;
+  border-radius: 4px;
+}
+
+/* ── 8. Closed / Resolved notice ─────────────────────────────── */
+.ticket-closed-notice {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  height: 58px;
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-surface-alt);
+  font-size: var(--text-sm);
+  color: #4B2E2B;
+  font-weight: 500;
+  border-radius: 0;
+}
+
+.ticket-closed-notice .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--color-text-muted);
+}
+
+.ticket-closed-notice strong {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* ── 9. Empty / loading states ───────────────────────────────── */
+.support-empty-state {
+  padding: var(--space-8);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
+}

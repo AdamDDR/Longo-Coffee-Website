@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/orders.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+      <a href="/admin/orders"    class="sidebar-link active"><span class="material-symbols-outlined">local_shipping</span> Orders</a>
+      <a href="/admin/products"  class="sidebar-link"><span class="material-symbols-outlined">inventory_2</span> Products</a>
+      <a href="/admin/money"     class="sidebar-link"><span class="material-symbols-outlined">account_balance_wallet</span> Finance</a>
+      <a href="/admin/analytics" class="sidebar-link"><span class="material-symbols-outlined">analytics</span> Analytics</a>
+      <a href="/admin/policies"  class="sidebar-link"><span class="material-symbols-outlined">policy</span> Policies</a>
+      <a href="/admin/support"   class="sidebar-link"><span class="material-symbols-outlined">support_agent</span> Support</a>
+      <a href="/admin/settings"  class="sidebar-link"><span class="material-symbols-outlined">settings</span> Settings</a>
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link"><span class="material-symbols-outlined">group</span> Users</a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Orders</h1>
+    <div class="admin-topbar__actions">
+      <button class="btn btn-ghost text-sm" id="export-csv-btn">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:-3px;">download</span> Export CSV
+      </button>
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="orders-layout">
+
+      <!-- ── Left: Table ──────────────────────────────────────────── -->
+      <div class="orders-main">
+        <div class="admin-toolbar">
+          <div class="admin-toolbar__left">
+            <div class="admin-toolbar__search">
+              <span class="material-symbols-outlined">search</span>
+              <input type="text" class="form-input" placeholder="Search by order ID or customer…" id="search-orders">
+            </div>
+            <select class="form-input admin-toolbar__select" id="filter-status">
+              <option value="">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Processing">Processing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="6" class="text-center py-8 text-muted">Loading orders…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Right: Stats Sidebar ─────────────────────────────────── -->
+      <div class="orders-stats-panel">
+        <h3 class="orders-stats-panel__title">Overview</h3>
+
+        <div class="stat-card stat-card--total" data-filter="">
+          <span class="material-symbols-outlined stat-card__icon">receipt_long</span>
+          <div>
+            <div class="stat-card__value" id="stat-total">—</div>
+            <div class="stat-card__label">Total Orders</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--pending" data-filter="Pending">
+          <span class="material-symbols-outlined stat-card__icon">hourglass_top</span>
+          <div>
+            <div class="stat-card__value" id="stat-pending">—</div>
+            <div class="stat-card__label">Pending</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--processing" data-filter="Processing">
+          <span class="material-symbols-outlined stat-card__icon">autorenew</span>
+          <div>
+            <div class="stat-card__value" id="stat-processing">—</div>
+            <div class="stat-card__label">Processing</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--shipped" data-filter="Shipped">
+          <span class="material-symbols-outlined stat-card__icon">local_shipping</span>
+          <div>
+            <div class="stat-card__value" id="stat-shipped">—</div>
+            <div class="stat-card__label">Shipped</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--delivered" data-filter="Delivered">
+          <span class="material-symbols-outlined stat-card__icon">check_circle</span>
+          <div>
+            <div class="stat-card__value" id="stat-delivered">—</div>
+            <div class="stat-card__label">Delivered</div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--cancelled" data-filter="Cancelled">
+          <span class="material-symbols-outlined stat-card__icon">cancel</span>
+          <div>
+            <div class="stat-card__value" id="stat-cancelled">—</div>
+            <div class="stat-card__label">Cancelled</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Order Detail Modal -->
+  <div class="modal-overlay" id="order-modal">
+    <div class="modal-content modal-content--lg">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="modal-order-id">Order Details</h2>
+          <p class="text-xs text-muted mt-1" id="modal-order-date"></p>
+        </div>
+        <button class="modal-close" onclick="closeModal('order-modal')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" id="order-modal-body">
+        <p class="text-center text-muted py-6">Loading…</p>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer__status">
+          <label class="text-xs text-muted font-medium">Update Status</label>
+          <select class="form-input" id="update-status-select">
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="update-status-btn">
+          <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">check</span>
+          Save Status
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-toast"></div>
+  <script src="/js/admin.js"></script>
+  <script src="/js/orders.js"></script>
+</body>
+</html>

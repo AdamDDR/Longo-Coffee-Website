@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+      <a href="/admin/orders" class="sidebar-link">
+        <span class="material-symbols-outlined">local_shipping</span> Orders
+      </a>
+      <a href="/admin/products" class="sidebar-link">
+        <span class="material-symbols-outlined">inventory_2</span> Products
+      </a>
+      <a href="/admin/money" class="sidebar-link">
+        <span class="material-symbols-outlined">account_balance_wallet</span> Finance
+      </a>
+      <a href="/admin/analytics" class="sidebar-link">
+        <span class="material-symbols-outlined">analytics</span> Analytics
+      </a>
+      <a href="/admin/policies" class="sidebar-link">
+        <span class="material-symbols-outlined">policy</span> Policies
+      </a>
+      <a href="/admin/support" class="sidebar-link">
+        <span class="material-symbols-outlined">support_agent</span> Support
+      </a>
+      <a href="/admin/settings" class="sidebar-link">
+        <span class="material-symbols-outlined">settings</span> Settings
+      </a>
+
+      <!-- Super Admin only — hidden by default, shown via admin.js -->
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link">
+          <span class="material-symbols-outlined">group</span> Users
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">Account Settings</h1>
+    <div class="admin-topbar__actions">
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div style="max-width:800px;margin:0 auto;">
+
+      <!-- Profile Panel -->
+      <div class="panel mb-6">
+        <h2 class="font-display text-xl mb-6">Profile Information</h2>
+        <form id="profile-form">
+          <div class="grid grid-2 gap-4 mb-4">
+            <div class="form-group mb-0">
+              <label class="form-label">Full Name <span class="required-star">*</span></label>
+              <input type="text" class="form-input" id="setting-name" required placeholder="First Last">
+            </div>
+            <div class="form-group mb-0">
+              <label class="form-label">Phone Number <span class="required-star">*</span></label>
+              <div style="display:flex;gap:8px;">
+                <select id="setting-country-code" class="form-input" style="width:110px;padding:0 12px;background:var(--color-surface-alt);font-weight:500;">
+                  <option value="+20">EG (+20)</option>
+                </select>
+                <input type="tel" class="form-input" id="setting-phone"
+                  maxlength="10" pattern="\d{10}" placeholder="1001234567"
+                  style="flex:1;" required title="Enter 10 digits after +20">
+              </div>
+            </div>
+          </div>
+          <div class="form-group mb-4">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="setting-email" readonly
+              style="background:var(--color-surface-alt);cursor:not-allowed;">
+            <p class="text-xs text-muted mt-2">Email cannot be changed for admin accounts.</p>
+          </div>
+          <div class="form-group mb-6">
+            <label class="form-label">Role</label>
+            <input type="text" class="form-input" id="setting-role" readonly
+              style="background:var(--color-surface-alt);cursor:not-allowed;text-transform:capitalize;">
+          </div>
+          <button type="submit" class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Security Panel -->
+      <div class="panel mb-6">
+        <h2 class="font-display text-xl mb-6">Password &amp; Security</h2>
+        <form id="password-form">
+          <div class="form-group">
+            <label class="form-label">Current Password</label>
+            <div class="password-wrapper">
+              <input type="password" class="form-input" id="current-password" placeholder="••••••••">
+              <button type="button" class="password-toggle-btn" data-target="current-password">
+                <span class="material-symbols-outlined">visibility_off</span>
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-2 gap-4 mb-4">
+            <div class="form-group mb-0">
+              <label class="form-label">New Password</label>
+              <div class="password-wrapper">
+                <input type="password" class="form-input" id="new-password" placeholder="••••••••">
+                <button type="button" class="password-toggle-btn" data-target="new-password">
+                  <span class="material-symbols-outlined">visibility_off</span>
+                </button>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <label class="form-label">Confirm New Password</label>
+              <div class="password-wrapper">
+                <input type="password" class="form-input" id="confirm-password" placeholder="••••••••">
+                <button type="button" class="password-toggle-btn" data-target="confirm-password">
+                  <span class="material-symbols-outlined">visibility_off</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-muted mb-4">Min 8 characters with at least 1 special character.</p>
+          <button type="submit" class="btn btn-ghost" id="update-password-btn">Update Password</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="admin-toast"></div>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

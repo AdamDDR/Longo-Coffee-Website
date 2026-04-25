@@ -1,0 +1,74 @@
+.reset-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff8e6;
+  border: 1px solid #f5c842;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  animation: fadeIn 0.3s ease;
+  flex-wrap: wrap;
+}
+.reset-notice__icon   { color: #c8960a; font-size: 20px; flex-shrink: 0; }
+.reset-notice__text   { flex: 1; font-size: var(--text-sm); color: #7a5c00; line-height: 1.5; }
+.reset-notice__name {
+  color: #6b4c35;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.reset-notice__name:hover  { color: #4a3020; }
+.reset-notice__action      { font-weight: 600; color: #6b4c35; white-space: nowrap; }
+.reset-notice__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  flex-shrink: 0;
+}
+.reset-notice__close:hover { color: #555; }
+
+.panel__header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.panel__title    { font: 700 1.1rem/1 var(--font-display); }
+.panel__subtitle { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+.dashboard-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .dashboard-bottom-grid { grid-template-columns: 1fr; }
+}
+
+.order-row:hover td { background: var(--color-surface-alt); }
+
+.stock-alert-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.stock-alert-item { padding: 12px 14px; border-radius: var(--radius-sm); border-left: 3px solid transparent; }
+.stock-alert-item--danger  { background: #fff2f2; border-color: #e05c5c; }
+.stock-alert-item--warning { background: #fffbf0; border-color: #f5c842; }
+.stock-alert-item--caution { background: #f6f9ff; border-color: #5b8dee; }
+
+.stock-alert-item__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.stock-alert-item__name { font-size: var(--text-sm); font-weight: 600; }
+.stock-alert-item__qty  { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+.stock-alert-bar { height: 5px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
+.stock-alert-bar__fill { height: 100%; border-radius: 99px; transition: width 0.4s ease; }
+.stock-alert-bar__fill--danger  { background: #e05c5c; }
+.stock-alert-bar__fill--warning { background: #f5c842; }
+.stock-alert-bar__fill--caution { background: #5b8dee; }

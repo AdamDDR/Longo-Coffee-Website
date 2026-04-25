@@ -1,0 +1,249 @@
+/* ================================================================
+   ticket.css — Support Ticket Thread Page
+   ================================================================ */
+
+.ticket-page {
+  padding-top: calc(var(--nav-height) + var(--space-6));
+  padding-bottom: var(--space-16);
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.ticket-page .container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Back link */
+.ticket-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: var(--space-6);
+  transition: color var(--transition-fast);
+}
+.ticket-back:hover { color: var(--color-primary); }
+.ticket-back .material-symbols-outlined { font-size: 18px; }
+
+/* Header */
+.ticket-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.ticket-header__id {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.ticket-header__subject {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-3);
+  line-height: 1.3;
+}
+
+.ticket-header__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.ticket-header__date {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.ticket-header__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* Thread */
+.ticket-thread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.thread-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-10);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Message bubbles */
+.thread-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 78%;
+  animation: fadeUp 0.2s ease;
+}
+
+.thread-message--client {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.thread-message--admin {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.thread-message__bubble {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.thread-message--client .thread-message__bubble {
+  background: var(--color-primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.thread-message--admin .thread-message__bubble {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-bottom-left-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.thread-message__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.thread-message__sender {
+  font-weight: 600;
+}
+
+/* Initial message (the original contact form body) */
+.thread-message__original {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: var(--space-3);
+  text-align: center;
+  padding: 0 var(--space-4);
+}
+
+/* Date divider */
+.thread-divider {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  position: relative;
+  margin: var(--space-2) 0;
+}
+.thread-divider::before,
+.thread-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: var(--color-divider);
+}
+.thread-divider::before { left: 0; }
+.thread-divider::after  { right: 0; }
+
+/* Reply box */
+.ticket-reply-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.ticket-reply-input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background: var(--color-bg);
+  resize: vertical;
+  transition: border-color var(--transition-fast);
+  box-sizing: border-box;
+}
+.ticket-reply-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.ticket-reply-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-3);
+}
+
+/* Closed notice */
+.ticket-closed-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.ticket-closed-notice .material-symbols-outlined { font-size: 20px; }
+.ticket-closed-notice a { color: var(--color-primary); font-weight: 600; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .thread-message { max-width: 90%; }
+  .ticket-header  { flex-direction: column; }
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management | Longo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-users.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Longo</div>
+      <div class="sidebar-subtitle">Admin Portal</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="sidebar-link">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+      <a href="/admin/orders" class="sidebar-link">
+        <span class="material-symbols-outlined">local_shipping</span> Orders
+      </a>
+      <a href="/admin/products" class="sidebar-link">
+        <span class="material-symbols-outlined">inventory_2</span> Products
+      </a>
+      <a href="/admin/money" class="sidebar-link">
+        <span class="material-symbols-outlined">account_balance_wallet</span> Finance
+      </a>
+      <a href="/admin/analytics" class="sidebar-link">
+        <span class="material-symbols-outlined">analytics</span> Analytics
+      </a>
+      <a href="/admin/policies" class="sidebar-link">
+        <span class="material-symbols-outlined">policy</span> Policies
+      </a>
+      <a href="/admin/support" class="sidebar-link">
+        <span class="material-symbols-outlined">support_agent</span> Support
+      </a>
+      <a href="/admin/settings" class="sidebar-link">
+        <span class="material-symbols-outlined">settings</span> Settings
+      </a>
+
+      <!-- Super Admin only — hidden by default, shown via admin.js -->
+      <div id="sidebar-super-section" style="display:none;">
+        <div class="sidebar-section-label">Super Admin</div>
+        <a href="/admin/users" class="sidebar-link">
+          <span class="material-symbols-outlined">group</span> Users
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <header class="admin-topbar">
+    <h1 class="admin-topbar__title">User Management</h1>
+    <div class="admin-topbar__actions">
+      <button class="admin-topbar__icon" id="admin-logout">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <div class="policy-note">
+      <h4>🔒 Data Privacy &amp; Access Control Policy</h4>
+      <p>
+        <strong>Super Admin Privileges:</strong> You can change user roles (admin ↔ client), flag accounts,
+        delete users, and issue temporary passwords for password-reset requests.
+        Client personal data remains confidential. Flagged accounts are immediately blocked from logging in.
+        Only Super Admins have access to this page.
+      </p>
+    </div>
+
+    <div class="panel">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="font-display text-xl">All Users</h2>
+        <span class="text-sm text-muted" id="user-count">Loading...</span>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Joined</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="users-table">
+            <tr><td colspan="7" class="text-center text-muted">Loading users...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Temporary Password Modal -->
+  <div class="modal-backdrop" id="tmp-modal-backdrop">
+    <div class="modal" id="tmp-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Set Temporary Password</h3>
+        <button class="modal-close" id="tmp-modal-close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="tmp-modal-desc">Enter a temporary password for this user.</p>
+        <div class="form-group">
+          <label class="form-label" for="tmp-password-input">Temporary Password</label>
+          <div class="input-with-icon">
+            <input type="text" id="tmp-password-input" class="form-input" placeholder="e.g. Longo@Temp2026" autocomplete="off">
+            <button class="input-icon-btn" id="tmp-generate-btn" title="Generate random password">
+              <span class="material-symbols-outlined">refresh</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--secondary" id="tmp-modal-cancel">Cancel</button>
+        <button class="btn btn--primary" id="tmp-modal-confirm">Set Password &amp; Notify</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal -->
+  <div class="modal-backdrop" id="del-modal-backdrop">
+    <div class="modal" id="del-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete User</h3>
+        <button class="modal-close" id="del-modal-close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="del-modal-desc">Are you sure you want to permanently delete this user? This cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--secondary" id="del-modal-cancel">Cancel</button>
+        <button class="btn btn--danger" id="del-modal-confirm">Delete Permanently</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-toast"></div>
+  <script src="/js/admin.js"></script>
+  <script src="/js/admin-users.js"></script>
+</body>
+</html>

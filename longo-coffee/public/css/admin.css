@@ -1,0 +1,519 @@
+/* ============================================================
+   Longo Coffee — Admin Specific Styles
+   Admin dashboard tweaks, split panel for support, avatar table
+   ============================================================ */
+
+
+/* ---- Admin Dashboard ---- */
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+
+@media (max-width: 1024px) {
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.chart-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+}
+
+
+.chart-container__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+}
+
+
+.chart-container__title {
+  font: 400 var(--text-lg)/1 var(--font-display);
+  color: var(--color-primary);
+}
+
+
+/* ---- Admin Avatar inside Table ---- */
+.table-avatar-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+
+.table-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface-alt);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 600 var(--text-xs)/1 var(--font-body);
+}
+
+
+/* ---- Support Ticket Split Panel ---- */
+.ticket-list {
+  background: var(--color-surface-alt);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+
+#ticket-list-container {
+  min-height: 400px;
+}
+
+
+.ticket-list-header {
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  background: #efe5d6;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+
+.ticket-list-header [data-filter].active {
+  background-color: var(--color-primary);
+  color: #FFF8F0;
+}
+
+
+.support-empty-state {
+  text-align: center;
+  padding: var(--space-12);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+
+.ticket-item {
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+
+.ticket-item:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+
+.ticket-item.active {
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-primary);
+}
+
+
+.ticket-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-2);
+}
+
+
+.ticket-item__id {
+  font: 600 var(--text-xs)/1 var(--font-body);
+  color: var(--color-text-muted);
+}
+
+
+.ticket-item__time {
+  font: 400 11px/1 var(--font-body);
+  color: var(--color-text-faint);
+}
+
+
+.ticket-item__subject {
+  font: 500 var(--text-sm)/1.4 var(--font-body);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+
+.ticket-item__preview {
+  font: 400 var(--text-xs)/1.5 var(--font-body);
+  color: var(--color-text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+.ticket-view {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+}
+
+
+.ticket-view-header {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.ticket-view-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+
+.ticket-message {
+  display: flex;
+  gap: var(--space-4);
+  max-width: 85%;
+}
+
+
+.ticket-message.admin-reply {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+
+.ticket-message__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 600 var(--text-sm)/1 var(--font-body);
+}
+
+
+.ticket-message.client-reply .ticket-message__avatar {
+  background: var(--color-surface-alt);
+  color: var(--color-primary);
+}
+
+
+.ticket-message.admin-reply .ticket-message__avatar {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+
+.ticket-message.internal-note .ticket-message__content {
+
+}
+
+
+.ticket-message__meta {
+  font: 400 11px/1 var(--font-body);
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-2);
+}
+
+
+.ticket-message__text {
+  font: 400 var(--text-sm)/1.6 var(--font-body);
+  color: var(--color-text);
+}
+
+
+.ticket-reply-box {
+  padding: var(--space-5) var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-surface-alt);
+}
+
+
+/* ---- Analytics 2x2 Grid ---- */
+.analytics-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+
+@media (max-width: 768px) {
+  .analytics-grid-2x2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================================
+   Admin Panel — Component Extensions
+   Toast, password wrapper, product thumbs, image upload
+   ============================================================ */
+
+/* ── Sidebar super-admin section label ────────────────────────── */
+.sidebar-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-faint);
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Shared admin toast ────────────────────────────────────────── */
+.admin-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--color-primary);
+  color: #FFF8F0;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.admin-toast.show  { transform: translateY(0); opacity: 1; }
+.admin-toast.error { background: var(--color-negative); }
+
+/* ── Password wrapper ──────────────────────────────────────────── */
+.password-wrapper {
+  position: relative;
+}
+.password-wrapper input {
+  padding-right: 44px;
+}
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.password-toggle-btn .material-symbols-outlined { font-size: 20px; }
+
+/* ── Product thumbnail ─────────────────────────────────────────── */
+.product-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+}
+.product-thumb-placeholder {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+.product-thumb-placeholder .material-symbols-outlined { font-size: 24px; }
+
+/* ── Image upload area ─────────────────────────────────────────── */
+.image-upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+.image-upload-area:hover {
+  border-color: var(--color-primary);
+  background: rgba(75, 46, 43, 0.02);
+}
+.image-upload-area.has-image {
+  border-style: solid;
+  padding: 0;
+}
+.image-upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.upload-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: var(--space-4) 0;
+}
+.upload-prompt .material-symbols-outlined {
+  font-size: 36px;
+  color: var(--color-text-muted);
+}
+.image-upload-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  display: block;
+}
+.image-upload-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: var(--radius-md);
+  z-index: 1;
+}
+.image-upload-area.has-image:hover .image-upload-overlay { opacity: 1; }
+.image-upload-overlay span { color: white; font-size: 14px; font-weight: 500; }
+.image-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+.image-upload-area.has-image:hover .image-remove-btn { opacity: 1; }
+.image-remove-btn .material-symbols-outlined { font-size: 18px; }
+
+/* ── Support page additions ─────────────────────────────────── */
+/* ── Support page — closed ticket notice ─────────────────────── */
+.ticket-closed-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-surface-alt);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.ticket-closed-notice .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--color-text-faint);
+}
+.ticket-closed-notice strong {
+  color: var(--color-text);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* ── admin-main--flush: removes padding for full-height layouts ─ */
+.admin-main--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ── Support thread message content (both sides) ─────────────── */
+.ticket-message__content {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  border-top-left-radius: 4px;
+}
+.ticket-message.admin-reply .ticket-message__content {
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: 4px;
+}
+
+/* ── Ticket list item — compact layout ───────────────────────── */
+.ticket-item {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ticket-item:hover,
+.ticket-item.active {
+  background: var(--color-surface-alt);
+}
+.ticket-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.ticket-item__id {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+}
+.ticket-item__time {
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+.ticket-item__subject {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ticket-item__category {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+.ticket-item__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+/* Remove any old preview styles */
+.ticket-item__preview { display: none; }

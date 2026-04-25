@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Coffee | Longo</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/homepage-artisanal.css">
+  <link rel="stylesheet" href="/css/shop.css">
+</head>
+<body class="artisanal-body">
+
+  <!-- Navigation -->
+  <nav class="client-nav" id="main-nav">
+    <div class="client-nav__inner">
+      <a href="/" class="client-nav__brand">Longo</a>
+      <div class="client-nav__links">
+        <a href="/shop" class="client-nav__link active">Shop</a>
+        <a href="/contact" class="client-nav__link">Contact</a>
+        <a href="/policies" class="client-nav__link">Policies</a>
+      </div>
+      <div class="client-nav__actions">
+        <a href="/auth" class="client-nav__link" id="nav-login-link">Login</a>
+        <a href="/cart" class="client-nav__cart-btn">
+          <span class="material-symbols-outlined">shopping_bag</span>
+          <span class="client-nav__cart-count" id="nav-cart-count" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="shop-page">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="shop-page-header animate-fade-in">
+        <h1>Our Collection</h1>
+        <p>Explore our range of meticulously roasted beans.</p>
+      </div>
+
+      <!-- Search -->
+      <div class="shop-search-wrap animate-fade-in">
+        <span class="material-symbols-outlined">search</span>
+        <input type="search" id="shop-search" class="form-input"
+               placeholder="Search coffees, equipment…" autocomplete="off">
+      </div>
+
+      <!-- Layout: Filters + Grid -->
+      <div class="shop-layout">
+
+        <!-- ── Filter sidebar ── -->
+        <aside class="animate-slide-in">
+          <div class="shop-filter-panel">
+
+            <div class="filter-group">
+              <h4 class="filter-title">Category</h4>
+              <label class="checkbox-label"><input type="radio" name="category" value="" class="filter-radio" checked> All</label>
+              <label class="checkbox-label"><input type="radio" name="category" value="Beans" class="filter-radio"> Coffee Beans</label>
+              <label class="checkbox-label"><input type="radio" name="category" value="Equipment" class="filter-radio"> Equipment</label>
+              <label class="checkbox-label"><input type="radio" name="category" value="Merchandise" class="filter-radio"> Merchandise</label>
+            </div>
+
+            <div class="filter-group">
+              <h4 class="filter-title">Roast Level</h4>
+              <label class="checkbox-label"><input type="radio" name="roast" value="" class="filter-radio"> All</label>
+              <label class="checkbox-label"><input type="radio" name="roast" value="Light" class="filter-radio"> Light</label>
+              <label class="checkbox-label"><input type="radio" name="roast" value="Medium" class="filter-radio"> Medium</label>
+              <label class="checkbox-label"><input type="radio" name="roast" value="Dark" class="filter-radio"> Dark</label>
+            </div>
+
+            <div class="filter-group">
+              <h4 class="filter-title">Origin</h4>
+              <label class="checkbox-label"><input type="radio" name="origin" value="" class="filter-radio"> All</label>
+              <label class="checkbox-label"><input type="radio" name="origin" value="Africa" class="filter-radio"> Africa</label>
+              <label class="checkbox-label"><input type="radio" name="origin" value="South America" class="filter-radio"> South America</label>
+              <label class="checkbox-label"><input type="radio" name="origin" value="Central America" class="filter-radio"> Central America</label>
+              <label class="checkbox-label"><input type="radio" name="origin" value="Blend" class="filter-radio"> Blend</label>
+            </div>
+
+            <div class="filter-group">
+              <h4 class="filter-title">Availability</h4>
+              <label class="checkbox-label">
+                <input type="checkbox" id="in-stock-filter"> In Stock Only
+              </label>
+            </div>
+
+            <div class="filter-group price-range-wrap">
+              <h4 class="filter-title">Max Price (EGP)</h4>
+              <input type="range" id="price-range" min="0" max="1000" value="1000" step="50">
+              <p class="price-range-label">Up to <span id="price-label">EGP 1000</span></p>
+            </div>
+
+            <button class="btn btn-ghost" style="width:100%;" id="clear-filters-btn">
+              Clear Filters
+            </button>
+
+          </div>
+        </aside>
+
+        <!-- ── Product grid ── -->
+        <div>
+          <div class="products-grid" id="products-grid">
+            <!-- Populated by main.js initShop() -->
+          </div>
+          <div class="shop-load-more">
+            <button class="btn btn-ghost" id="load-more-btn" style="display:none;">Load More</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Longo</div>
+        <p class="footer-text">Premium artisanal coffee, ethically sourced and precision-roasted in Cairo.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Navigate</p>
+        <div class="footer-links">
+          <a href="/shop" class="footer-link">Shop</a>
+          <a href="/contact" class="footer-link">Contact</a>
+          <a href="/policies" class="footer-link">Policies</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-heading">Legal</p>
+        <div class="footer-links">
+          <a href="/policies" class="footer-link">Shipping Policy</a>
+          <a href="/policies" class="footer-link">Returns</a>
+          <a href="/policies" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Longo Coffee. Crafted with intentionality.</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
