@@ -26,7 +26,6 @@ The admin panel uniquely combines e-commerce management with financial analytics
 | Fonts | Google Fonts — Playfair Display + Work Sans |
 | PDF Export | jsPDF + html2canvas |
 | Version Control | Git + GitHub |
-| Deployment | Proxmox LXC — Debian Linux Container |
 
 ---
 
@@ -74,10 +73,10 @@ This creates all SQLite tables and seeds default admin credentials:
 
 ```
 Email:    admin@longo.com
-Password: Admin@1234
+Password: 12345678@
 
 Email: superadmin@longo.com
-Password: Super@1234
+Password: Super@12345
 ```
 
 > Change these immediately after first login.
