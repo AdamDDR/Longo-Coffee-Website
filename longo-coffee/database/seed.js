@@ -136,13 +136,13 @@ const products = [
     name: 'Longo Pour-Over Kit',
     description: 'Professional-grade ceramic dripper with borosilicate glass carafe. Includes 50 unbleached paper filters. Perfect for single-cup brewing.',
     roast: null, origin: '', category: 'Equipment',
-    price: 450, stock: 35, sku: 'EQP-POR-007', image: '/assets/images/pour-over-kit.png'
+    price: 450, stock: 35, sku: 'EQP-POR-007', image: '/assets/images/longo-pour-over-kit.png'
   },
   {
     name: 'Precision Coffee Grinder',
     description: 'Stainless steel burr grinder with 15 grind settings from espresso to French press. Compact design with anti-static container.',
     roast: null, origin: '', category: 'Equipment',
-    price: 850, stock: 20, sku: 'EQP-GRN-008', image: '/assets/images/coffee-grinder.png'
+    price: 850, stock: 20, sku: 'EQP-GRN-008', image: '/assets/images/precision-coffee-grinder.png'
   },
   {
     name: 'Gooseneck Kettle',
@@ -156,19 +156,19 @@ const products = [
     name: 'Longo Ceramic Mug',
     description: 'Handcrafted 350ml ceramic mug in matte espresso brown with embossed Longo logo. Microwave and dishwasher safe.',
     roast: null, origin: '', category: 'Merchandise',
-    price: 120, stock: 100, sku: 'MER-MUG-010', image: '/assets/images/longo-mug.png'
+    price: 120, stock: 100, sku: 'MER-MUG-010', image: '/assets/images/longo-ceramic-mug.png'
   },
   {
     name: 'Canvas Tote Bag',
     description: 'Organic cotton canvas tote with "Longo Coffee" screen print. Reinforced straps and inner pocket. Perfect for market runs.',
     roast: null, origin: '', category: 'Merchandise',
-    price: 85, stock: 75, sku: 'MER-TOT-011', image: '/assets/images/tote-bag.png'
+    price: 85, stock: 75, sku: 'MER-TOT-011', image: '/assets/images/canvas-tote-bag.png'
   },
   {
     name: 'Coffee Lover Gift Box',
     description: 'Curated gift set featuring 2x 100g single-origin samplers, a Longo mug, and artisanal chocolate-covered espresso beans.',
     roast: null, origin: '', category: 'Merchandise',
-    price: 350, stock: 30, sku: 'MER-GFT-012', image: '/assets/images/gift-box.png'
+    price: 350, stock: 30, sku: 'MER-GFT-012', image: '/assets/images/coffee-lover-gift-box.png'
   }
 ];
 
