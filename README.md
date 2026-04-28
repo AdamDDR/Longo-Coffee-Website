@@ -197,7 +197,7 @@ The **Money Management** page implements the full CN4005 financial toolkit:
 | Name | Role | GitHub |
 |---|---|---|
 | Adam Nabil | Frontend | [@AdamDDR](https://github.com/AdamDDR) |
-| Feras | Frontend |  |
+| Feras | Frontend | @Feras1745 |
 | Ali Wael | Backend | @AliAzzam123 |
 | Abdelrahman Ahab | Backend | @Ahabbtw |
 | Yassin | Database | |
