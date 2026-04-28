@@ -1,15 +1,15 @@
-# Longo — Premium Coffee E-Commerce Platform
+# ☕ Longo — Premium Coffee E-Commerce Platform
 
-> A full-stack coffee shop web application with a client storefront and a comprehensive admin management portal.
-> Built for CN4005 (Mental Wealth Professional Life) and Web Technologies — University of East London, European Universities in Egypt, Spring 2026.
+> A full-stack coffee shop web application with a client storefront and a comprehensive admin management portal.  
+> Built for **CN4005 (Mental Wealth Professional Life)** and **Web Technologies** — University of East London, European Universities in Egypt, Spring 2026.
 
 ---
 
-## ☕ What is Longo?
+## What is Longo?
 
-**Longo** is a premium coffee brand e-commerce platform that sells coffee beans, blends, brewing equipment, mugs, and merchandise online. The platform serves two distinct user roles: **Clients** (shoppers) and **Admins** (store operators), each with a dedicated, fully featured interface.
+Longo is a premium coffee brand e-commerce platform for selling coffee beans, blends, brewing equipment, mugs, and merchandise online. The platform serves three distinct user roles — **Clients** (shoppers), **Admins** (store operators), and **Super Admins** (system managers) — each with a dedicated, fully featured interface.
 
-The admin panel uniquely combines e-commerce management with financial analytics and project management KPIs — directly satisfying the CN4005 Mental Wealth rubric requirements for NPV, ROI, Payback Period, Cash Flow analysis, Burn Down charts, and Velocity charts.
+The admin panel uniquely combines e-commerce management with financial analytics and project management KPIs, directly satisfying the CN4005 rubric requirements for NPV, ROI, Payback Period, Cash Flow analysis, Burn Down charts, and Velocity charts.
 
 ---
 
@@ -19,13 +19,14 @@ The admin panel uniquely combines e-commerce management with financial analytics
 |---|---|
 | Frontend | HTML5 (Semantic), External CSS, Vanilla JavaScript |
 | Backend | Node.js (Express.js) |
-| Database | SQLite3 (via `better-sqlite3`) |
-| Auth Security | SHA-256 password hashing |
-| Charts | Chart.js (CDN) |
-| Icons | Lucide Icons (CDN) |
+| Database | SQLite3 (via `better-sqlite3` and `express-session` store) |
+| Auth Security | SHA-256 password hashing with force-reset flows |
+| Charts | Chart.js (CDN for frontend, `chartjs-node-canvas` for backend) |
+| AI Insights | `@google/generative-ai` (Gemini 1.5 Flash) |
+| Document Export | `docx` (Server-side Word Report Generation) |
 | Fonts | Google Fonts — Playfair Display + Work Sans |
-| PDF Export | jsPDF + html2canvas |
 | Version Control | Git + GitHub |
+| Deployment | Proxmox LXC — Debian Linux Container |
 
 ---
 
@@ -33,14 +34,14 @@ The admin panel uniquely combines e-commerce management with financial analytics
 
 ### Prerequisites
 
-- **Node.js** v18 or higher — [nodejs.org](https://nodejs.org/)
-- **Git** — [git-scm.com](https://git-scm.com/)
+- [Node.js v18+](https://nodejs.org/)
+- [Git](https://git-scm.com/)
 - SQLite is bundled via npm — no separate install needed
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/longo-coffee.git
+git clone https://github.com/AdamDDR/Longo-Coffee-Website.git
 cd longo-coffee
 ```
 
@@ -59,9 +60,10 @@ PORT=3000
 DB_PATH=./database/longo.sqlite
 SESSION_SECRET=your_secure_random_string_here
 NODE_ENV=development
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-> ⚠️ Never commit your `.env` file. It is listed in `.gitignore`.
+> ⚠️ **Never commit your `.env` file.** It is listed in `.gitignore`.
 
 ### 4. Initialize the Database
 
@@ -69,17 +71,7 @@ NODE_ENV=development
 npm run db:setup
 ```
 
-This creates all SQLite tables and seeds default admin credentials:
-
-```
-Email:    admin@longo.com
-Password: 12345678@
-
-Email: superadmin@longo.com
-Password: Super@12345
-```
-
-> Change these immediately after first login.
+This creates all SQLite tables and seeds default admin credentials. **Change these immediately after first login.**
 
 ### 5. Start Development Server
 
@@ -87,8 +79,8 @@ Password: Super@12345
 npm run dev
 ```
 
-- Client storefront: **http://localhost:3000**
-- Admin panel: **http://localhost:3000/admin**
+- **Client storefront:** http://localhost:3000
+- **Admin panel:** http://localhost:3000/admin/dashboard
 
 ---
 
@@ -97,55 +89,36 @@ npm run dev
 ```
 longo-coffee/
 ├── public/
-│   ├── css/
-│   │   ├── variables.css        # All CSS custom properties
-│   │   ├── base.css             # Reset + typography base
-│   │   ├── layout.css           # Grid, containers, nav, sidebar
-│   │   ├── components.css       # Cards, buttons, forms, badges
-│   │   ├── animations.css       # Keyframes and transitions
-│   │   ├── admin.css            # Admin panel styles
-│   │   └── style.css            # Entry point — @imports all above
-│   ├── js/
-│   │   ├── main.js              # Client-side logic
-│   │   ├── admin.js             # Admin panel logic
-│   │   ├── charts.js            # Chart.js configuration + rendering
-│   │   ├── finance.js           # NPV, ROI, Payback, Weighted Score
-│   │   └── auth.js              # Login/register frontend logic
+│   ├── css/                 # CSS custom properties, layout, components, admin styles
+│   ├── js/                  # Client-side and Admin panel logic
 │   └── assets/
-│       └── images/
+│       └── images/          # Uploaded images
 ├── views/
-│   ├── client/
-│   │   ├── homepage.html        # Homepage
-│   │   ├── shop.html            # Shop / Products page
-│   │   ├── contact.html         # Contact page
-│   │   ├── profile.html         # User profile
-│   │   ├── auth.html            # Login / Sign up
-│   │   └── policies.html        # Policies page
-│   └── admin/
-│       ├── dashboard.html       # Admin dashboard
-│       ├── orders.html          # Track orders
-│       ├── products.html        # Product & inventory management
-│       ├── support.html         # Contact support / tickets
-│       ├── money.html           # Money management
-│       ├── analytics.html       # Explore analytics
-│       └── settings.html        # Account settings
+│   ├── client/              # Homepage, shop, profile, auth, checkout, policies
+│   └── admin/               # Dashboard, orders, products, support, money, settings, users
 ├── routes/
-│   ├── auth.js                  # Login, register, session
-│   ├── products.js              # Products CRUD
-│   ├── orders.js                # Orders CRUD
-│   ├── tickets.js               # Support tickets CRUD
-│   └── admin.js                 # Admin-protected routes
+│   ├── auth.js              # Login, register, session, password reset
+│   ├── products.js          # Products CRUD
+│   ├── orders.js            # Orders CRUD
+│   ├── tickets.js           # Support tickets CRUD
+│   ├── users.js             # Super Admin user management CRUD
+│   ├── admin-dashboard.js   # Dashboard metrics API
+│   └── admin.js             # Admin-protected routes, Finance/Analytics APIs, Exports
+├── scripts/
+│   ├── report-analytics.js  # docx + AI generation for analytics
+│   └── report-finance.js    # docx + AI generation for finance
 ├── database/
-│   ├── schema.sql               # Full database schema
-│   ├── seed.js                  # Initial data seeding
-│   └── longo.sqlite             # SQLite DB file (gitignored)
+│   ├── schema.sql           # Full database schema
+│   ├── seed.js              # Initial data seeding
+│   ├── migrate.js           # Database migrations
+│   └── longo.sqlite         # SQLite DB file (gitignored)
 ├── middleware/
-│   ├── auth.js                  # Session validation
-│   └── adminGuard.js            # Admin route protection
-├── .env                         # Environment config (gitignored)
+│   ├── auth.js              # Session validation
+│   └── adminGuard.js        # Admin & Super Admin route protection
+├── .env                     # Environment config (gitignored)
 ├── .gitignore
 ├── package.json
-└── server.js                    # Express entry point
+└── server.js                # Express entry point
 ```
 
 ---
@@ -154,42 +127,47 @@ longo-coffee/
 
 | Table | Description |
 |---|---|
-| `users` | Clients and admins — SHA-256 hashed passwords, profile image path, role |
+| `users` | Clients, admins, and super admins — SHA-256 hashed passwords, temporary passwords, activity flags |
 | `products` | Coffee catalog — name, category, roast level, origin, price, stock, image |
-| `orders` | Order records linked to users, shipping address snapshot, status |
+| `orders` | Order records linked to users, shipping address snapshot, status, payment method |
 | `order_items` | Line items per order — product, quantity, price at time of purchase |
 | `support_tickets` | Client-submitted inquiries with urgency and status |
 | `ticket_messages` | Threaded messages per ticket — client and admin replies |
-| `sprint_tasks` | Project management tasks for Burn Down and Velocity chart data |
+| `projects` | Financial initiatives managing CapEx and projected ROI for NPV calculations |
+| `policies` | Dynamic key-value store for terms, shipping, and privacy policies |
+| `admin_reset_requests` | Super admin oversight table for forced password resets |
 
-Full schema: `database/schema.sql`
+Full schema: [`database/schema.sql`](database/schema.sql)
 
 ---
 
 ## 🔐 Security
 
-- All passwords are hashed with **SHA-256** before any database write. Plaintext passwords are never stored.
-- Sessions managed server-side via `express-session`.
-- Admin routes protected by `adminGuard.js` — unauthenticated requests redirect to login.
+- All passwords are hashed with **SHA-256** before any database write — plaintext passwords are never stored.
+- Sessions managed server-side via `express-session` with `better-sqlite3-session-store`.
+- Admin routes protected by `adminGuard.js` middleware.
+- Super Admin routes (user control, role reassignment, force password changes) protected by `superAdminGuard`.
 - `.env` and `longo.sqlite` are both in `.gitignore` and must never be committed.
-- All database queries use parameterized statements — no SQL injection surface.
+- All database queries use **parameterized statements** — no SQL injection surface.
 
 ---
 
-## 🔁 CRUD Screens (4 Required by Rubric)
+## 🔁 CRUD Screens
 
 | Entity | Create | Read | Update | Delete |
 |---|---|---|---|---|
 | **Products** | Admin adds product (name, price, stock, image, roast, origin) | Client shop + admin inventory | Edit price, stock, description | Soft delete — preserves order history |
-| **User Accounts** | Client self-registration with SHA-256 hashed password | Profile page with order history | Update name, address, avatar | Account deactivation |
+| **User Accounts** | Client self-registration / Admin assignment | Profile page + Super Admin user lists | Update profile, role changes, flag accounts, issue temp passwords | Super Admin hard delete (cascades orders) |
 | **Orders** | Created at checkout with line items and address snapshot | Client profile + admin track orders | Admin updates status (Pending → Processing → Shipped → Delivered) | Admin archive/cancel with reason |
 | **Support Tickets** | Client submits via contact form → ticket created in admin | Admin inbox + client ticket history | Admin replies, status progresses (Open → In Progress → Resolved → Closed) | Admin archives resolved tickets |
+| **Projects/Initiatives** | Admin creates financial initiative with CapEx and ROI | Money Management dashboard | Edit project status, notes, financial targets | Delete project |
+| **Policies** | Admin updates policy content via key-value interface | Client views policies page | Update existing policy content | N/A |
 
 ---
 
-## 📊 Financial Analytics (CN4005 Mental Wealth)
+## 📊 Financial Analytics & AI Reporting (CN4005)
 
-The Money Management page implements the full CN4005 financial toolkit:
+The **Money Management** page implements the full CN4005 financial toolkit:
 
 | Metric | Formula |
 |---|---|
@@ -198,9 +176,8 @@ The Money Management page implements the full CN4005 financial toolkit:
 | Payback Period | Year before recovery + (Remaining ÷ Net CF in recovery year) |
 | NPV | Sum of [CF_t ÷ (1+r)^t] − Initial Investment |
 | ROI | (Total Discounted Benefits − Total Discounted Costs) ÷ Discounted Costs |
-| Weighted Score | Sum of (Weight_i × Score_i) per project |
 
-All results are interactive (Chart.js) and exportable as PDF reports via jsPDF.
+**AI-Powered DOCX Export:** The system uses Google's Generative AI (Gemini 1.5 Flash) and `chartjs-node-canvas` to generate comprehensive `.docx` financial and analytics reports server-side, including executive summaries, data-driven insights, and embedded charts.
 
 ---
 
@@ -208,64 +185,10 @@ All results are interactive (Chart.js) and exportable as PDF reports via jsPDF.
 
 | KPI | Implementation |
 |---|---|
-| Burn Down Chart | Sprint story points remaining (Actual vs Ideal line) — live in admin dashboard |
-| Velocity Chart | Story points completed per sprint (Sprint 1–5) — bar chart in dashboard |
-| Task Status | To Do / In Progress / Completed / Blocked counts — KPI cards |
-| Critical Path | FS/SS dependency logic documented in sprint backlog table |
+| Task Status | Real-time analytics and order status tracking |
 | Low Stock Alerts | Auto-generated from products with stock below threshold |
-
----
-
-## ⚙️ Configuration Management & Version Control
-
-Branching strategy (Lab 7 — GitHub):
-
-```
-main          ← production-ready, protected
-develop       ← integration branch
-feature/xxx   ← feature development
-hotfix/xxx    ← urgent production fixes
-```
-
-Commit convention:
-```
-feat: add SHA-256 password hashing to registration
-fix: resolve order status not updating in admin view
-docs: update README with Proxmox deployment steps
-chore: add .gitignore for sqlite and env files
-```
-
----
-
-## 🖥️ Production Deployment — Proxmox LXC
-
-| Spec | Value |
-|---|---|
-| Container Type | LXC (Unprivileged) |
-| OS | Debian 12 (Bookworm) |
-| RAM | 2 GB |
-| CPU | 2 vCores |
-| Storage | 20 GB |
-| Node.js | v18 LTS |
-
-```bash
-# On the Proxmox LXC container:
-apt update && apt upgrade -y
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-apt install -y nodejs git
-
-git clone https://github.com/yourusername/longo-coffee.git /var/www/longo
-cd /var/www/longo
-npm install --production
-cp .env.example .env
-nano .env   # fill in production values
-npm run db:setup
-
-# Run with PM2
-npm install -g pm2
-pm2 start server.js --name longo
-pm2 save && pm2 startup
-```
+| Conversion Tracking | Order volume and user registration metrics over 30 days |
+| Revenue Tracking | Category and payment method breakdowns |
 
 ---
 
@@ -273,26 +196,27 @@ pm2 save && pm2 startup
 
 | Name | Role | GitHub |
 |---|---|---|
-| [Your Name] | Full-Stack Lead | @yourusername |
-| [Team Member 2] | Frontend / UI | @teammate2 |
-| [Team Member 3] | Backend / DB | @teammate3 |
+| Adam Nabil | Frontend | [@AdamDDR](https://github.com/AdamDDR) |
+| Feras | Frontend |  |
+| Ali Wael | Backend | @AliAzzam123 |
+| Abdelrahman Ahab | Backend | @Ahabbtw |
+| Yassin | Database | |
 
 ---
 
-## 📎 Academic Links
+## 📎 Links
 
 | Item | Link |
 |---|---|
-| GitHub Repository | https://github.com/yourusername/longo-coffee |
-| Live Website | http://your-proxmox-ip:3000 |
-| Jira Board | https://yourteam.atlassian.net/jira/software/projects/LONGO |
+| GitHub Repository | [github.com/AdamDDR/Longo-Coffee-Website](https://github.com/AdamDDR/Longo-Coffee-Website) |
 
 ---
 
 ## 📄 Academic Note
 
 Submitted as the final project for:
-- **CN4005 — Mental Wealth Professional Life** (financial analytics, KPIs, project management)
-- **Web Technologies** (full-stack implementation, CRUD, responsive UI)
 
-Spring 2026 — University of East London, European Universities in Egypt.
+- **CN4005** — Mental Wealth Professional Life *(financial analytics, KPIs, project management)*
+- **Web Technologies** *(full-stack implementation, CRUD, responsive UI)*
+
+**Spring 2026** — University of East London, European Universities in Egypt.
